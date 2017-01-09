@@ -1,0 +1,87 @@
+{% extends 'movies/base.html' %}
+{% block title %} Movie Details{% endblock %}
+
+
+{% block body %}
+<div class="container-fluid movies-container">
+
+    <div class="row">
+
+        <div class="col-sm-2 col-md-2">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="{% url 'movies:detail' movie.id %}"></a>
+                     <img src="{{ movie.Poster }}" class="img-responsive">
+                    <h1>{{ movie.Name }} </h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;
+                    <p> Price: ${{ movie.Price }} </p>
+                    <a href="#" style="text-decoration:none; color :#000;">Add to Cart</a>&nbsp;&nbsp;&nbsp;
+                    <form action="{% url 'shopping:add' movie.id %}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="#" value="#" />
+
+                                <button type="submit" class="btn btn-default btn-sm">
+                                      <span class="glyphicon glyphicon-shopping-cart"></span>
+                                </button>
+                    </form><br><br><br>
+                    <div class="alert alert-success">Successfully added to Cart</div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-sm-9 col-md-10">
+
+
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <h3>Movie Information</h3>
+
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Cast</th>
+                                <th>Plot</th>
+                                <th>Genre</th>
+                                <th>Director</th>
+
+                                <th>Year</th>
+                                <th>Rating</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{  movie.Name }}</td>
+                                <td>{{  movie.Cast }}</td>
+                                <td>{{  movie.Plot }}</td>
+                                <td>{{  movie.Genre }}</td>
+                                <td>{{  movie.Director}}</td>
+
+                                <td>{{  movie.Year }}</td>
+                                <td>{{  movie.Rating }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="container">
+        <div class="embed-responsive embed-responsive-16by9" style="width:1080px; height:105px; margin:35px auto 35px auto;">
+            <iframe class="embed-responsive-item" src="http://www.youtube.com/embed/{{movie.Trailer}} " width="720" height="405"  frameborder="0" allowfullscreen></iframe>
+        </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}MovieBox{% endblock %}</title>
+    <meta name="viewport" content="width-device-width, initial-scale=1">
+
+    {% load staticfiles %}
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'movies/style.css' %}"/>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.payment/1.2.3/jquery.payment.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+
+        <!-- Header -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#MainBar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'movies:index' %}">MOVIEBOX</a>
+        </div>
+
+        <!-- Items -->
+            <div class="collapse navbar-collapse" id="MainBar">
+                <ul class="nav navbar-nav">
+                    <li class="">
+                        <a href="{% url 'movies:index' %}">
+                            <span class="glyphicon glyphicon-film" aria-hidden="true"></span>&nbsp; Movies
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="{% url 'movies:news' %}">
+                            <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>&nbsp; News
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="{% url 'movies:newmovies' %}">
+                            <span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span>&nbsp; In Theaters this Week
+                        </a>
+                    </li>
+
+                </ul>
+
+
+
+
+                <form class="navbar-form navbar-left" role="search" method="GET" action="{% url 'movies:search' %}">
+                    <div class="form-group">
+                        <input type="text" placeholder="Find Movies,TV shows" class="form-control" name="q" value="{{ request.GET.q }}">
+                    </div>
+                    <button type="submit" class="btn btn-default">Search</button>
+                </form>
+
+
+                <ul class="nav navbar-nav navbar-center">
+                <li class="">
+                 {% if user.is_authenticated %}
+                      <a href="{% url 'movies:index' %}">
+                     WELCOME, &nbsp;{{ user.get_username }}
+                     {% else %}
+                     <meta charset="UTF-8" http-equiv="refresh" content="0; url={% url 'movies:login_user' %}" />
+                        {% endif %}
+                     </a>
+                    </li>
+
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;My Account
+                        <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'shopping:show' %}">My Cart</a> </li>
+                             <li><a href="#">Account Settings</a> </li>
+                             <li><a href="#">Help</a> </li>
+                        </ul>
+                    </li>
+                    <li class="">
+                        <a href="{% url 'movies:logout_user' %}">
+                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; Logout
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+
+    </div>
+</nav>
+{% block body %}
+{% endblock %}
+</body>
+</html>

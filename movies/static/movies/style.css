@@ -1,0 +1,12 @@
+body{
+    background: white url("https://raw.githubusercontent.com/buckyroberts/Viberr/master/music/static/music/images/background.png");
+}
+
+.navbar{
+    border-radius: 0;
+}
+
+.navbar-brand{
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 20px;
+}
